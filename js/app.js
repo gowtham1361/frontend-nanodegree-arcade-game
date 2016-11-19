@@ -8,17 +8,21 @@ var Enemy = function(x,y) {
     this.sprite = 'images/enemy-bug.png';
     this.x=x;
     this.y=y;
-    this.speed=Math.floor(Math.random() * (100 - 10)) + 10;
+    //this.speed=Math.floor(Math.random() * (100 - 10)) + 10;
+    this.speed=Math.floor(Math.random() * 100) + 20;
 
 };
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
-        if(this.x == 300)
-            this.x = 0;
-        else
+    if(this.x >= 505){
+            this.x = -100;
+            console.log("back in screen");
+        }
+        else{
             this.x = this.x + this.speed*dt;
+        }
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
@@ -37,12 +41,22 @@ var Player = function() {
     this.y=400;
     this.sprite='images/char-boy.png';
 
-
 };
 
+Player.prototype.reset=function(){
+    this.x=200;
+    this.y=400;
+}
+
 Player.prototype.update = function(dt) {
-
-
+    if(this.x >= 410 || this.x <= -5){
+            alert("player within the game board");
+            player.reset();
+            console.log("back in screen");
+        }
+    if(this.y <= -15 || this.y >= 421) {
+            player.reset();
+    }
 };
 
 Player.prototype.render = function() {
@@ -67,10 +81,10 @@ Player.prototype.handleInput = function(key) {
 
 };
 
-var enemy0= new Enemy(-20,150);
-var enemy1= new Enemy(-40,200);
-var enemy2= new Enemy(-90,250);
-var enemy3= new Enemy(-70,80);
+var enemy0= new Enemy(-20,195);
+var enemy1= new Enemy(-40,150);
+var enemy2= new Enemy(-90,230);
+var enemy3= new Enemy(-70,100);
 var enemy4= new Enemy(-100,50);
 
 
