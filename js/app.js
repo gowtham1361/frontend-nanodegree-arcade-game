@@ -10,7 +10,8 @@ var Enemy = function(x,y) {
     this.y=y;
     //this.speed=Math.floor(Math.random() * (100 - 10)) + 10;
     this.speed=Math.floor(Math.random() * 100) + 20;
-
+    this.width=101;
+    this.height=171;
 };
 
 // Update the enemy's position, required method for game
@@ -40,6 +41,8 @@ var Player = function() {
     this.x=200;
     this.y=400;
     this.sprite='images/char-boy.png';
+    this.width=101;
+    this.height=171;
 
 };
 
@@ -78,6 +81,22 @@ Player.prototype.handleInput = function(key) {
             this.y+=20;
             break;
     }
+
+};
+
+Player.prototype.collisionCheck = function() {
+
+for (var i= 0; i<allEnemies.length;i++) {
+
+    if (player.x < allEnemies[i].x + allEnemies[i].width &&
+   player.x + player.width > allEnemies[i].x &&
+   player.y < allEnemies[i].y + allEnemies[i].height &&
+   player.height + player.y > allEnemies[i].y) {
+     console.log("collided");
+     console.log("pa");// collision detected!
+}
+}
+
 
 };
 
