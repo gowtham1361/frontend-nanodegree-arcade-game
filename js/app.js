@@ -58,7 +58,13 @@ Player.prototype.update = function(dt) {
             console.log("back in screen");
         }
     if(this.y <= -15 || this.y >= 421) {
+        if(this.y <= -15){
+            alert("YOU WON THE GAME!");//criteria to win the game
             player.reset();
+        }
+        else {
+            player.reset();
+        }
     }
 };
 
@@ -84,20 +90,22 @@ Player.prototype.handleInput = function(key) {
 
 };
 
-Player.prototype.collisionCheck = function() {
+Player.prototype.collisionCheck = function(x,y) {
+//providing the height and width of the objects locally .
+    enemyX=x;
+    enemyY=y;
+    enemyWidth=70;
+    enemyHeight=40;
+    playerWidth=60;
+    playerHeight=65;
 
-for (var i= 0; i<allEnemies.length;i++) {
-
-    if (player.x < allEnemies[i].x + allEnemies[i].width &&
-   player.x + player.width > allEnemies[i].x &&
-   player.y < allEnemies[i].y + allEnemies[i].height &&
-   player.height + player.y > allEnemies[i].y) {
-     console.log("collided");
-     console.log("pa");// collision detected!
-}
-}
-
-
+        if (this.x < enemyX + enemyWidth &&
+            this.x + playerWidth > enemyX &&
+            this.y < enemyY + enemyHeight &&
+            playerHeight + this.y > enemyY) {
+                    console.log("collided");
+                    this.reset();// collision detected!
+            }
 };
 
 var enemy0= new Enemy(-20,195);
@@ -112,10 +120,11 @@ var enemy4= new Enemy(-100,50);
 // Place the player object in a variable called player
 var allEnemies= [enemy0,enemy1,enemy2,enemy3,enemy4];
 
-for (var i=0;i<3;i++) {
+//i didnt know how to figure out a way for pushing with different location values for enemy
+/*for (var i=0;i<3;i++) {
     allEnemies.push(new Enemy());
 }
-
+*/
 var player = new Player();
 
 // This listens for key presses and sends the keys to your

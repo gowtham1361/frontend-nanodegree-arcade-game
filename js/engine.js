@@ -80,9 +80,14 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
+         checkCollisions();
     }
 
+function checkCollisions() {
+        allEnemies.forEach(function(enemy) {
+            player.collisionCheck(enemy.x,enemy.y);
+        });
+    }
     /* This is called by the update function and loops through all of the
      * objects within your allEnemies array as defined in app.js and calls
      * their update() methods. It will then call the update function for your
@@ -153,6 +158,8 @@ var Engine = (function(global) {
 
         player.render();
     }
+
+
 
     /* This function does nothing but it could have been a good place to
      * handle game reset states - maybe a new game menu or a game over screen
