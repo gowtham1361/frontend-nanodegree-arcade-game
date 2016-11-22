@@ -19,7 +19,6 @@ var Enemy = function(x,y) {
 Enemy.prototype.update = function(dt) {
     if(this.x >= 505){
             this.x = -100;
-            console.log("back in screen");
         }
         else{
             this.x = this.x + this.speed*dt;
@@ -41,29 +40,29 @@ var Player = function() {
     this.x=200;
     this.y=400;
     this.sprite='images/char-boy.png';
-    this.width=101;
-    this.height=171;
-
+    enemyWidth=70;
+    enemyHeight=40;
+    playerWidth=60;
+    playerHeight=65;
 };
 
 Player.prototype.reset=function(){
     this.x=200;
     this.y=400;
-}
+};
 
 Player.prototype.update = function(dt) {
     if(this.x >= 410 || this.x <= -5){
-            alert("player within the game board");
-            player.reset();
-            console.log("back in screen");
+            alert("play within the game board");
+            this.reset();
         }
     if(this.y <= -15 || this.y >= 421) {
         if(this.y <= -15){
             alert("YOU WON THE GAME!");//criteria to win the game
-            player.reset();
+            this.reset();
         }
         else {
-            player.reset();
+            this.reset();
         }
     }
 };
@@ -72,6 +71,7 @@ Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+// this function handles the input for the player
 Player.prototype.handleInput = function(key) {
     switch(key){
         case 'left':
@@ -92,22 +92,16 @@ Player.prototype.handleInput = function(key) {
 
 Player.prototype.collisionCheck = function(x,y) {
 //providing the height and width of the objects locally .
-    enemyX=x;
-    enemyY=y;
-    enemyWidth=70;
-    enemyHeight=40;
-    playerWidth=60;
-    playerHeight=65;
-
+   var enemyX=x;
+   var  enemyY=y;
         if (this.x < enemyX + enemyWidth &&
             this.x + playerWidth > enemyX &&
             this.y < enemyY + enemyHeight &&
             playerHeight + this.y > enemyY) {
-                    console.log("collided");
                     this.reset();// collision detected!
             }
 };
-
+//instantiating the enemy objects
 var enemy0= new Enemy(-20,195);
 var enemy1= new Enemy(-40,150);
 var enemy2= new Enemy(-90,230);
